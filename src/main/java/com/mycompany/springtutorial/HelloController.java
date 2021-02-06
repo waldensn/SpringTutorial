@@ -1,5 +1,9 @@
 
 package com.mycompany.springtutorial;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
 import java.util.ArrayList;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,13 +24,17 @@ public class HelloController {
     }
     
     public ArrayList<Person> getPersons(){
-                ArrayList<Person> personList = new ArrayList<Person>(){ 
-            { 
-                add(new Person("John Smith", 31, "Software Engineer")); 
-                add(new Person("Mary Wilson", 45, "Accountant")); 
-                add(new Person("Mark Johnson", 51, "Customer Support")); 
-            } 
-        };
+        MongoConnection conn = new MongoConnection();
+        MongoDatabase db = conn.getClient().getDatabase("Steve");
+        MongoCollection<Person> personCol = db.getCollection("Persons", Person.class);
+        ArrayList<Person> personList = new ArrayList<Person>();
+        
+        //calling find method causes no such method exception
+        //fixed by adding spring mongo dependency
+        for (Person p : personCol.find()) {
+            personList.add(p);
+        }
+       
         return personList;
     }
     

@@ -10,7 +10,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.5.0:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Dmongopw=6Vw8DhFvqZCGRZQ -classpath %classpath com.mycompany.springtutorial.Application</exec.args>
+                <exec.args>-Dmongopw=6Vw8DhFvqZCGRZQ -classpath %classpath ${packageClassName}</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
@@ -24,7 +24,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.5.0:exec</goal>
             </goals>
             <properties>
-                <exec.args>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address} -Dmongopw=6Vw8DhFvqZCGRZQ -classpath %classpath com.mycompany.springtutorial.Application</exec.args>
+                <exec.args>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address} -Dmongopw=6Vw8DhFvqZCGRZQ -classpath %classpath ${packageClassName}</exec.args>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
             </properties>
@@ -39,7 +39,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.5.0:exec</goal>
             </goals>
             <properties>
-                <exec.args>-Dmongopw=6Vw8DhFvqZCGRZQ -classpath %classpath com.mycompany.springtutorial.Application</exec.args>
+                <exec.args>-Dmongopw=6Vw8DhFvqZCGRZQ -classpath %classpath ${packageClassName}</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
@@ -53,8 +53,8 @@
                 <goal>surefire:test</goal>
             </goals>
             <properties>
-                <test>${packageClassName}</test>
-                <mongopw>6Vw8DhFvqZCGRZQ</mongopw>
+                <test>${packageClassName};</test>
+                <mongopw>"6Vw8DhFvqZCGRZQ"</mongopw>
             </properties>
         </action>
         <action>
@@ -81,41 +81,6 @@
                 <goal>test</goal>
             </goals>
             <properties>
-                <mongopw>6Vw8DhFvqZCGRZQ</mongopw>
-            </properties>
-        </action>
-        <action>
-            <actionName>debug.test.single</actionName>
-            <packagings>
-                <packaging>*</packaging>
-            </packagings>
-            <goals>
-                <goal>test-compile</goal>
-                <goal>surefire:test</goal>
-            </goals>
-            <properties>
-                <test>${packageClassName}</test>
-                <forkMode>once</forkMode>
-                <maven.surefire.debug>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</maven.surefire.debug>
-                <jpda.listen>true</jpda.listen>
-                <mongopw>6Vw8DhFvqZCGRZQ</mongopw>
-            </properties>
-        </action>
-        <action>
-            <actionName>debug.integration-test.single</actionName>
-            <packagings>
-                <packaging>*</packaging>
-            </packagings>
-            <goals>
-                <goal>integration-test</goal>
-            </goals>
-            <properties>
-                <test>DummyToSkipUnitTests</test>
-                <failIfNoTests>false</failIfNoTests>
-                <it.test>${packageClassName}</it.test>
-                <forkMode>once</forkMode>
-                <maven.failsafe.debug>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</maven.failsafe.debug>
-                <jpda.listen>true</jpda.listen>
                 <mongopw>6Vw8DhFvqZCGRZQ</mongopw>
             </properties>
         </action>
